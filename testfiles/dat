@@ -1,0 +1,8 @@
+#
+# Settings file for GenRetractionTest.py
+#
+# Edit this file to match the G-code file you are using for the test. Default values
+# in this file are set to match the supplied template.
+#
+# startHeight - (mm) Retraction settings will begin at this height (typically used to skip base layers)
+startLayer = 2.0
