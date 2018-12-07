@@ -91,7 +91,6 @@ def analyze_template_file():
                 bed_temp = temp
 
 
-
 def read_settings():
     global TEMPLATE_FILE
     if 1 != os.path.exists(CONFIG_FILE_PATH):
