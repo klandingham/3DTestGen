@@ -4,5 +4,6 @@
 # Edit this file to match the G-code file you are using for the test. Default values
 # in this file are set to match the supplied template.
 #
-# startHeight - (mm) Retraction settings will begin at this height (typically used to skip base layers)
-startLayer = 2.0
+[MainOptions]
+# baseHeight - (mm) If the input model has a base, enter its height in mm here
+baseHeight = 2.0

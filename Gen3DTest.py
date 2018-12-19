@@ -1,4 +1,17 @@
 # TODO HEADER
+#
+# Questions:
+#
+#   How hard to vary layer height?
+#   - if I vary layer height what else varies?
+#           Going from a .2 layer to a .1 layer:
+#               - for every "G1 Z" command the Z value is halved
+#               - for every "G1 X<val> Y<val> E" the extraction ("E") value is halved
+#               - *HARD* when layer height is changed, total number of layers required to get original height
+#                 changes, so to get the same height model, I would have to either subtract existing or add new
+#                 layers (HARD), BUT...who cares if the original height is maintained? The original intent is to
+#                 compare the *print quality*, so I may just add a caveat to the layer height
+
 import ConfigParser
 import os
 
@@ -7,10 +20,17 @@ CONFIG_FILE_PATH = r'RTGen.cfg'
 TEMPLATE_FILE = ''
 
 # globals
+# template file characteristics
+total_line_count = 0
 layer_count = 0
+layer_height = 0
 ext_temp = 0
 bed_temp = 0
+retract_dist = 0
+retract_speed = 0
 
+# user settings (from config file)
+base_height = 0
 
 #
 #
@@ -67,17 +87,21 @@ bed_temp = 0
 
 def analyze_template_file():
     global TEMPLATE_FILE
+    global retract_dist
+    global retract_speed
     global ext_temp
     global bed_temp
+    global total_line_count
+    global layer_count
+    global layer_height
 
-    print("Template file is \"%s\" ...analyzing..." % TEMPLATE_FILE)
+    print("\nTemplate file is \"%s\"" % TEMPLATE_FILE)
+    print("\nAnalyzing...\n")
     total_line_count = 0
-    comment_line_count = 0
     for template_line in open(TEMPLATE_FILE).xreadlines():
-        total_line_count = total_line_count + 1
+        total_line_count += 1
         # skip comment lines
         if template_line.startswith(";", 0):
-            comment_line_count = comment_line_count + 1
             continue
         # extruder temperature
         elif -1 != template_line.find("M104") or -1 != template_line.find("M109"):
@@ -93,18 +117,40 @@ def analyze_template_file():
             temp = int(temp_arg[1:])
             if temp > 0:
                 bed_temp = temp
-    print("      Total lines: %d" % total_line_count)
-    print("     G-code lines: %d\n" % (total_line_count - comment_line_count))
+        # Z-axis movement (e.g., layer)
+        elif -1 != template_line.find("G1 Z"):
+            layer_count += 1
+        elif -1 != template_line.find("G1 E-"):
+            temp_arg = template_line.split()[1]
+            retract_dist = float(temp_arg[2:])
+        elif -1 != template_line.find("G1 E"):
+            temp_arg = template_line.split()[2]
+            retract_speed = int(temp_arg[1:])
 
 
-def preview_settings():
-    print("Template file is "),
-    print(TEMPLATE_FILE),
-    print("n")
+def print_model_info():
+    global retract_dist
+    global retract_speed
+    global ext_temp
+    global bed_temp
+    global total_line_count
+    global layer_count
+    global layer_height
+
+    print("        Total lines: %d" % total_line_count)
+    print("   Number of layers: %d" % layer_count)
+    print("      Extruder temp: %d" % ext_temp)
+    print("           Bed temp: %d" % bed_temp)
+    print("   Retraction speed: %d mm/min" % retract_speed),
+    print("(%.2f mm/sec)" % (retract_speed / 60.0))
+    print("Retraction distance: %.2f mm" % retract_dist)
 
 
 def read_settings():
     global TEMPLATE_FILE
+    global base_height
+
+    print("\nInitializing...\n")
     if 1 != os.path.exists(CONFIG_FILE_PATH):
         print("\nError: configuration file:"),
         print("\"" + CONFIG_FILE_PATH + "\" not found."),
@@ -118,6 +164,7 @@ def read_settings():
         print("\"" + TEMPLATE_FILE + "\"!"),
         print("exiting...\n")
         exit(1)
+    base_height = config_parser.get("MainOpts", "baseHeight").strip()
     # if 1 != os.path.exists(settingsFilename):
     #     print("\nError: settings file:"),
     #     print("\"" + settingsFilename + "\" not found."),
@@ -134,4 +181,6 @@ def read_settings():
 
 read_settings()
 analyze_template_file()
+print_model_info()
+# confirm_settings()
 # preview_settings()

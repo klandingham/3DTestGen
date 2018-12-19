@@ -3,8 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="fd69aa9d-f093-486b-be15-75e50e9a2a61" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GenRetractionTest.py" beforeDir="false" afterPath="$PROJECT_DIR$/GenRetractionTest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RetractionTestTemplate.gcode" beforeDir="false" afterPath="$PROJECT_DIR$/RetractionTestTemplate.gcode" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GenRetractionTest.py" beforeDir="false" afterPath="$PROJECT_DIR$/Gen3DTest.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RTGen.cfg" beforeDir="false" afterPath="$PROJECT_DIR$/RTGen.cfg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RetractionTest.settings" beforeDir="false" afterPath="$PROJECT_DIR$/RetractionTest.settings" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -14,36 +15,26 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/GenRetractionTest.py">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Gen3DTest.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="486">
-              <caret line="95" column="11" selection-start-line="95" selection-start-column="11" selection-end-line="95" selection-end-column="11" />
+            <state relative-caret-position="37">
+              <caret line="145" column="12" selection-start-line="145" selection-start-column="12" selection-end-line="145" selection-end-column="12" />
               <folding>
                 <element signature="e#14#33#0" expanded="true" />
-                <element signature="e#203#204#0" />
+                <element signature="e#1049#1050#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/RetractionTestTemplate.gcode">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/RTGen.cfg">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="630">
-              <caret line="121" selection-start-line="121" selection-end-line="121" />
+            <state relative-caret-position="138">
+              <caret line="79" column="4" lean-forward="true" selection-start-line="79" selection-start-column="4" selection-end-line="79" selection-end-column="4" />
             </state>
           </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/RetractionTest.settings">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/RTGen.cfg">
-          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
     </leaf>
@@ -54,9 +45,11 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/RTGen.cfg" />
         <option value="$PROJECT_DIR$/RetractionTestTemplate.gcode" />
+        <option value="$PROJECT_DIR$/RetractionTest.settings" />
         <option value="$PROJECT_DIR$/GenRetractionTest.py" />
+        <option value="$PROJECT_DIR$/Gen3DTest.py" />
+        <option value="$PROJECT_DIR$/RTGen.cfg" />
       </list>
     </option>
   </component>
@@ -71,7 +64,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -79,10 +71,16 @@
               <item name="3DTestGen" type="b2602c69:ProjectViewProjectNode" />
               <item name="3DTestGen" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="3DTestGen" type="b2602c69:ProjectViewProjectNode" />
+              <item name="3DTestGen" type="462c0819:PsiDirectoryNode" />
+              <item name="testfiles" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -100,7 +98,28 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.Gen3DTest">
+    <configuration name="Gen3DTest" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="3DTestGen" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Gen3DTest.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="GenRetractionTest" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="3DTestGen" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -113,7 +132,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/GenRetractionTest.py" />
+      <option name="SCRIPT_NAME" value="C:\Users\guy.landingham\PycharmProjects\3DTestGen\Gen3DTest.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -124,6 +143,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.Gen3DTest" />
         <item itemvalue="Python.GenRetractionTest" />
       </list>
     </recent_temporary>
@@ -139,38 +159,59 @@
       <option name="presentableId" value="Default" />
       <updated>1543346516271</updated>
     </task>
+    <task id="LOCAL-00001" summary="Interim commit">
+      <created>1545177888874</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1545177888874</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="1912" y="9" width="1936" height="1199" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24973656" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24973656" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3292683" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3292683" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39962476" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info anchor="bottom" id="Version Control" order="7" visible="true" weight="0.587242" />
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Python Console" order="10" />
+      <window_info anchor="bottom" id="Python Console" order="10" weight="0.3292683" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
     </layout>
   </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Interim commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="Interim commit" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/GenRetractionTest.py</url>
-          <line>134</line>
-          <option name="timeStamp" value="1" />
+          <url>file://$PROJECT_DIR$/Gen3DTest.py</url>
+          <line>166</line>
+          <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -178,26 +219,34 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/RTconfig.py" />
     <entry file="file://$PROJECT_DIR$/RetractionTest.settings">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RTGen.cfg">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RetractionTestTemplate.gcode">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="630">
-          <caret line="121" selection-start-line="121" selection-end-line="121" />
+        <state relative-caret-position="126">
+          <caret line="7" selection-start-line="7" selection-end-line="7" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/GenRetractionTest.py">
+    <entry file="file://$PROJECT_DIR$/RetractionTestTemplate.gcode">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
-          <caret line="95" column="11" selection-start-line="95" selection-start-column="11" selection-end-line="95" selection-end-column="11" />
+        <state relative-caret-position="396">
+          <caret line="4591" selection-start-line="4591" selection-end-line="4591" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Gen3DTest.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="37">
+          <caret line="145" column="12" selection-start-line="145" selection-start-column="12" selection-end-line="145" selection-end-column="12" />
           <folding>
             <element signature="e#14#33#0" expanded="true" />
-            <element signature="e#203#204#0" />
+            <element signature="e#1049#1050#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RTGen.cfg">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="79" column="4" lean-forward="true" selection-start-line="79" selection-start-column="4" selection-end-line="79" selection-end-column="4" />
         </state>
       </provider>
     </entry>
