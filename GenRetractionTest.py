@@ -70,10 +70,14 @@ def analyze_template_file():
     global ext_temp
     global bed_temp
 
-    print "\nAnalyzing template file..."
+    print("Template file is \"%s\" ...analyzing..." % TEMPLATE_FILE)
+    total_line_count = 0
+    comment_line_count = 0
     for template_line in open(TEMPLATE_FILE).xreadlines():
+        total_line_count = total_line_count + 1
         # skip comment lines
         if template_line.startswith(";", 0):
+            comment_line_count = comment_line_count + 1
             continue
         # extruder temperature
         elif -1 != template_line.find("M104") or -1 != template_line.find("M109"):
@@ -89,6 +93,14 @@ def analyze_template_file():
             temp = int(temp_arg[1:])
             if temp > 0:
                 bed_temp = temp
+    print("      Total lines: %d" % total_line_count)
+    print("     G-code lines: %d\n" % (total_line_count - comment_line_count))
+
+
+def preview_settings():
+    print("Template file is "),
+    print(TEMPLATE_FILE),
+    print("n")
 
 
 def read_settings():
@@ -122,3 +134,4 @@ def read_settings():
 
 read_settings()
 analyze_template_file()
+# preview_settings()
