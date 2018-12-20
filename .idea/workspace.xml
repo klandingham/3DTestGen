@@ -3,9 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="fd69aa9d-f093-486b-be15-75e50e9a2a61" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GenRetractionTest.py" beforeDir="false" afterPath="$PROJECT_DIR$/Gen3DTest.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RTGen.cfg" beforeDir="false" afterPath="$PROJECT_DIR$/RTGen.cfg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RetractionTest.settings" beforeDir="false" afterPath="$PROJECT_DIR$/RetractionTest.settings" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -18,12 +16,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Gen3DTest.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="37">
+            <state relative-caret-position="2592">
               <caret line="145" column="12" selection-start-line="145" selection-start-column="12" selection-end-line="145" selection-end-column="12" />
-              <folding>
-                <element signature="e#14#33#0" expanded="true" />
-                <element signature="e#1049#1050#0" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -31,8 +25,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/RTGen.cfg">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="138">
-              <caret line="79" column="4" lean-forward="true" selection-start-line="79" selection-start-column="4" selection-end-line="79" selection-end-column="4" />
+            <state relative-caret-position="468">
+              <caret line="78" column="9" selection-start-line="78" selection-start-column="9" selection-end-line="78" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -166,13 +160,21 @@
       <option name="project" value="LOCAL" />
       <updated>1545177888874</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Interim commit">
+      <created>1545262449767</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1545262449767</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="1912" y="9" width="1936" height="1199" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24973656" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24973656" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -182,7 +184,7 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Version Control" order="7" visible="true" weight="0.587242" />
+      <window_info active="true" anchor="bottom" id="Version Control" order="7" visible="true" weight="0.22045028" />
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Python Console" order="10" weight="0.3292683" />
@@ -234,19 +236,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Gen3DTest.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="37">
+        <state relative-caret-position="2592">
           <caret line="145" column="12" selection-start-line="145" selection-start-column="12" selection-end-line="145" selection-end-column="12" />
-          <folding>
-            <element signature="e#14#33#0" expanded="true" />
-            <element signature="e#1049#1050#0" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/RTGen.cfg">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="138">
-          <caret line="79" column="4" lean-forward="true" selection-start-line="79" selection-start-column="4" selection-end-line="79" selection-end-column="4" />
+        <state relative-caret-position="468">
+          <caret line="78" column="9" selection-start-line="78" selection-start-column="9" selection-end-line="78" selection-end-column="9" />
         </state>
       </provider>
     </entry>
