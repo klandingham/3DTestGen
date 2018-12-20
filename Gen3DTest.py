@@ -1,5 +1,6 @@
 # TODO HEADER
 #
+# TODO: NEXT: Determine input model layer height
 # Questions:
 #
 #   How hard to vary layer height?
@@ -14,6 +15,7 @@
 
 import ConfigParser
 import os
+
 
 # constants - shouldn't need to change any of these
 CONFIG_FILE_PATH = r'RTGen.cfg'
@@ -85,6 +87,7 @@ base_height = 0
 # read_settings()
 
 
+
 def analyze_template_file():
     global TEMPLATE_FILE
     global retract_dist
@@ -94,6 +97,10 @@ def analyze_template_file():
     global total_line_count
     global layer_count
     global layer_height
+
+    last_z_position = 0.0
+    base_layer_height = 0
+    last_z_position = 0
 
     print("\nTemplate file is \"%s\"" % TEMPLATE_FILE)
     print("\nAnalyzing...\n")
@@ -119,6 +126,17 @@ def analyze_template_file():
                 bed_temp = temp
         # Z-axis movement (e.g., layer)
         elif -1 != template_line.find("G1 Z"):
+            z_position = float(template_line.split()[1][1:])
+            if 0 == last_z_position: # first Z movement
+                # last_layer_movement = float(z_position)
+                last_z_position = float(z_position)
+            else:
+                layer_height = z_position - last_z_position
+                last_z_position = z_position
+                if 0 == base_layer_height:  # once determined, the layer height must never change in the template file
+                    base_layer_height = layer_height
+                elif base_layer_height != layer_height:
+                    exit(1)     # TODO: Add error handler: "inconsistent layer height in template file"
             layer_count += 1
         elif -1 != template_line.find("G1 E-"):
             temp_arg = template_line.split()[1]
@@ -179,8 +197,10 @@ def read_settings():
 #
 
 
+# def confirm_settings():
+
+
 read_settings()
 analyze_template_file()
 print_model_info()
 # confirm_settings()
-# preview_settings()
