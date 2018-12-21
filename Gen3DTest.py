@@ -35,6 +35,11 @@ retract_speed = 0
 # user settings (from config file)
 base_height = 0
 num_sections = 0
+vary_nozzle_temp = "disabled"
+vary_retract_dist = "disabled"
+vary_retract_speed = "disabled"
+vary_print_speed = "disabled"
+nozzle_temp_values = 0
 
 #
 #
@@ -187,9 +192,23 @@ def read_settings():
         print("exiting...\n")
         exit(1)
     base_height = float(config_parser.get("MainOpts", "BaseHeight").strip())
-    num_sections = config_parser.get("MainOpts", "NumTestSections").strip()
+    num_sections = int(config_parser.get("MainOpts", "NumTestSections").strip())
     if 2 > num_sections:
         exit(2) # TODO: error handler that outputs meaningful message
+    vary_nozzle_temp = config_parser.get("MainOpts", "VaryNozzleTemp")
+    if "discrete" == vary_nozzle_temp:
+        try:
+            nozzle_temps = config_parser.get("MainOpts", "NozzleTemps")
+        except ConfigParser.NoOptionError:
+            print("\n\nError: VaryNozzleTemp is set to \"discrete\" but no values setting was found.")
+            print("Please check configuration file. Exiting...")
+            exit(3)
+
+
+
+    vary_retract_dist = config_parser.get("MainOpts", "VaryRetractionDistance")
+    vary_retract_speed = config_parser.get("MainOpts", "VaryRetractionSpeed")
+    vary_print_speed = config_parser.get("MainOpts", "VaryPrintSpeed")
     # if 1 != os.path.exists(settingsFilename):
     #     print("\nError: settings file:"),
     #     print("\"" + settingsFilename + "\" not found."),
@@ -207,17 +226,27 @@ def read_settings():
 def confirm_settings():
     global num_base_layers
 
+    print("\nSettings: \n")
     num_base_layers = int(ceil(base_height / layer_height))
+    print("             Base height: %.2f mm" % base_height),
+    print("(%d layers)" % num_base_layers)
+    print(" Number of test sections: %d" % num_sections)
+    layers_per_section = (layer_count - num_base_layers) / num_sections
+    print("      Layers per section: %d" % layers_per_section)
+    print("        Vary nozzle temp: %s" % vary_nozzle_temp)
+    print("Vary retraction distance: %s" % vary_retract_dist)
+    print("   Vary retraction speed: %s" % vary_retract_speed)
+    print("        Vary print speed: %s" % vary_retract_speed)
 
 
-    print("        Total lines: %d" % total_line_count)
-    print("   Number of layers: %d" % layer_count)
-    print("      Extruder temp: %d" % ext_temp)
-    print("           Bed temp: %d" % bed_temp)
-    print("   Retraction speed: %d mm/min" % retract_speed),
-    print("(%.2f mm/sec)" % (retract_speed / 60.0))
-    print("Retraction distance: %.2f mm" % retract_dist)
-    print("       Layer height: %.2f mm" % layer_height)
+    # print("        Total lines: %d" % total_line_count)
+    # print("   Number of layers: %d" % layer_count)
+    # print("      Extruder temp: %d" % ext_temp)
+    # print("           Bed temp: %d" % bed_temp)
+    # print("   Retraction speed: %d mm/min" % retract_speed),
+    # print("(%.2f mm/sec)" % (retract_speed / 60.0))
+    # print("Retraction distance: %.2f mm" % retract_dist)
+    # print("       Layer height: %.2f mm" % layer_height)
 
 
 read_settings()
