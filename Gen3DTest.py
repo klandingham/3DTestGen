@@ -1,6 +1,5 @@
 # TODO HEADER
 #
-# TODO: NEXT: Determine input model layer height
 # Questions:
 #
 #   How hard to vary layer height?
@@ -18,6 +17,8 @@ import os
 
 
 # constants - shouldn't need to change any of these
+from math import ceil
+
 CONFIG_FILE_PATH = r'RTGen.cfg'
 TEMPLATE_FILE = ''
 
@@ -33,6 +34,7 @@ retract_speed = 0
 
 # user settings (from config file)
 base_height = 0
+num_sections = 0
 
 #
 #
@@ -97,9 +99,9 @@ def analyze_template_file():
     global total_line_count
     global layer_count
     global layer_height
+    global num_base_layers
 
-    last_z_position = 0.0
-    base_layer_height = 0
+    model_layer_height = 0
     last_z_position = 0
 
     print("\nTemplate file is \"%s\"" % TEMPLATE_FILE)
@@ -133,9 +135,9 @@ def analyze_template_file():
             else:
                 layer_height = z_position - last_z_position
                 last_z_position = z_position
-                if 0 == base_layer_height:  # once determined, the layer height must never change in the template file
-                    base_layer_height = layer_height
-                elif base_layer_height != layer_height:
+                if 0 == model_layer_height:  # once determined, the layer height must never change in the template file
+                    model_layer_height = layer_height
+                elif abs(model_layer_height - layer_height) > 0.00001:
                     exit(1)     # TODO: Add error handler: "inconsistent layer height in template file"
             layer_count += 1
         elif -1 != template_line.find("G1 E-"):
@@ -162,11 +164,13 @@ def print_model_info():
     print("   Retraction speed: %d mm/min" % retract_speed),
     print("(%.2f mm/sec)" % (retract_speed / 60.0))
     print("Retraction distance: %.2f mm" % retract_dist)
+    print("       Layer height: %.2f mm" % layer_height)
 
 
 def read_settings():
     global TEMPLATE_FILE
     global base_height
+    global num_sections
 
     print("\nInitializing...\n")
     if 1 != os.path.exists(CONFIG_FILE_PATH):
@@ -182,7 +186,10 @@ def read_settings():
         print("\"" + TEMPLATE_FILE + "\"!"),
         print("exiting...\n")
         exit(1)
-    base_height = config_parser.get("MainOpts", "baseHeight").strip()
+    base_height = float(config_parser.get("MainOpts", "BaseHeight").strip())
+    num_sections = config_parser.get("MainOpts", "NumTestSections").strip()
+    if 2 > num_sections:
+        exit(2) # TODO: error handler that outputs meaningful message
     # if 1 != os.path.exists(settingsFilename):
     #     print("\nError: settings file:"),
     #     print("\"" + settingsFilename + "\" not found."),
@@ -197,10 +204,23 @@ def read_settings():
 #
 
 
-# def confirm_settings():
+def confirm_settings():
+    global num_base_layers
+
+    num_base_layers = int(ceil(base_height / layer_height))
+
+
+    print("        Total lines: %d" % total_line_count)
+    print("   Number of layers: %d" % layer_count)
+    print("      Extruder temp: %d" % ext_temp)
+    print("           Bed temp: %d" % bed_temp)
+    print("   Retraction speed: %d mm/min" % retract_speed),
+    print("(%.2f mm/sec)" % (retract_speed / 60.0))
+    print("Retraction distance: %.2f mm" % retract_dist)
+    print("       Layer height: %.2f mm" % layer_height)
 
 
 read_settings()
 analyze_template_file()
 print_model_info()
-# confirm_settings()
+confirm_settings()
