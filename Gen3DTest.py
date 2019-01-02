@@ -4,7 +4,7 @@
 #
 #   How hard to vary layer height?
 #   - if I vary layer height what else varies?
-#           Going from a .2 layer to a .1 layer:
+#           Test by comparing G-code files: going from a .2 layer to a .1 layer:
 #               - for every "G1 Z" command the Z value is halved
 #               - for every "G1 X<val> Y<val> E" the extraction ("E") value is halved
 #               - *HARD* when layer height is changed, total number of layers required to get original height
@@ -14,7 +14,6 @@
 
 import ConfigParser
 import os
-
 
 # constants - shouldn't need to change any of these
 from math import ceil
@@ -35,11 +34,10 @@ retract_speed = 0
 # user settings (from config file)
 base_height = 0
 num_sections = 0
-vary_nozzle_temp = "disabled"
 vary_retract_dist = "disabled"
 vary_retract_speed = "disabled"
-vary_print_speed = "disabled"
-nozzle_temp_values = 0
+nozzle_temp_mode = "disabled"
+nozzle_temp_values = []
 
 #
 #
@@ -110,7 +108,7 @@ def analyze_template_file():
     last_z_position = 0
 
     print("\nTemplate file is \"%s\"" % TEMPLATE_FILE)
-    print("\nAnalyzing...\n")
+    print("Analyzing...\n")
     total_line_count = 0
     for template_line in open(TEMPLATE_FILE).xreadlines():
         total_line_count += 1
@@ -153,6 +151,24 @@ def analyze_template_file():
             retract_speed = int(temp_arg[1:])
 
 
+def set_nozzle_temps(temp_mode, num_sections, **kwargs):
+    global nozzle_temp_values
+
+    if "discrete" == temp_mode:
+        nozzle_temp_values = kwargs["discrete_values"].split()
+        if (num_sections != len(nozzle_temp_values)):
+            print("\n\nERROR:\nNumber of discrete nozzle temperature values"),
+            print("is different than the number of sections to be generated.\n")
+            print("Please check the configuration file. Exiting...")
+            exit(4)
+    elif "range" == temp_mode:
+        min_value = int(kwargs["min"])
+        max_value = int(kwargs["max"])
+        step = float((int(max_value) - int(min_value)) / float((num_sections - 1)))
+        nozzle_temp_values = [float(min_value + step * x) for x in range(num_sections)]
+        print nozzle_temp_values
+
+
 def print_model_info():
     global retract_dist
     global retract_speed
@@ -176,7 +192,11 @@ def read_settings():
     global TEMPLATE_FILE
     global base_height
     global num_sections
-
+    global nozzle_temp_mode
+    #
+    #
+    # get config file
+    #
     print("\nInitializing...\n")
     if 1 != os.path.exists(CONFIG_FILE_PATH):
         print("\nError: configuration file:"),
@@ -191,18 +211,39 @@ def read_settings():
         print("\"" + TEMPLATE_FILE + "\"!"),
         print("exiting...\n")
         exit(1)
+    #
+    #
+    # get height (mm) of model base and desired number of test sections
+    #
     base_height = float(config_parser.get("MainOpts", "BaseHeight").strip())
     num_sections = int(config_parser.get("MainOpts", "NumTestSections").strip())
     if 2 > num_sections:
-        exit(2) # TODO: error handler that outputs meaningful message
-    vary_nozzle_temp = config_parser.get("MainOpts", "VaryNozzleTemp")
-    if "discrete" == vary_nozzle_temp:
+        print("\n\nERROR:\nYou must specify at least 2 test sections,"),
+        print("or else why bother using this program?")
+        print("Please check the configuration file. Exiting...")
+        exit(2)
+    nozzle_temp_mode = config_parser.get("MainOpts", "VaryNozzleTemp")
+    if "discrete" == nozzle_temp_mode:
         try:
             nozzle_temps = config_parser.get("MainOpts", "NozzleTemps")
+            set_nozzle_temps(nozzle_temp_mode, num_sections, discrete_values = nozzle_temps)
         except ConfigParser.NoOptionError:
-            print("\n\nError: VaryNozzleTemp is set to \"discrete\" but no values setting was found.")
-            print("Please check configuration file. Exiting...")
+            print("\n\nERROR:\nVaryNozzleTemp is set to \"discrete\" but no setting containing"),
+            print("the desired values was found.\n")
+            print("Please check the configuration file. Exiting...")
             exit(3)
+    elif "range" == nozzle_temp_mode:
+        try:
+            nozzle_temp_min = config_parser.get("MainOpts", "NozzleTempMin")
+            nozzle_temp_max = config_parser.get("MainOpts", "NozzleTempMax")
+            set_nozzle_temps(nozzle_temp_mode, num_sections, min = nozzle_temp_min, max = nozzle_temp_max)
+        except ConfigParser.NoOptionError:
+            print("\n\nERROR:\nVaryNozzleTemp is set to \"range\" but the desired min"),
+            print("and max settings were not found.\n")
+            print("Please check the configuration file. Exiting...")
+            exit(5)
+
+
 
 
 
@@ -233,10 +274,15 @@ def confirm_settings():
     print(" Number of test sections: %d" % num_sections)
     layers_per_section = (layer_count - num_base_layers) / num_sections
     print("      Layers per section: %d" % layers_per_section)
-    print("        Vary nozzle temp: %s" % vary_nozzle_temp)
+    print("        Vary nozzle temp: %s" % nozzle_temp_mode)
     print("Vary retraction distance: %s" % vary_retract_dist)
     print("   Vary retraction speed: %s" % vary_retract_speed)
     print("        Vary print speed: %s" % vary_retract_speed)
+    print("Test Generator Settings")
+    print("=======================")
+    if len(nozzle_temp_values) > 0:
+        print("Extruder temp values:"),
+        print nozzle_temp_values
 
 
     # print("        Total lines: %d" % total_line_count)
